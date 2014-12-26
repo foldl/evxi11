@@ -109,7 +109,8 @@ loop(#vxi_state{client = Clnt, server = ServerPid, lid = Lid, max_recv = MaxRecv
                     exit(vxi11)
             end;
         stop ->
-            vxi_clnt:destroy_link_1(Clnt, Lid);            
+            vxi_clnt:destroy_link_1(Clnt, Lid),
+            rpc_client:close(Clnt);            
         {'EXIT', _Pid, _Reason} ->
             exit(port_terminated);
         X ->
